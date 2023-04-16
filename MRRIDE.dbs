@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MYRIDE" id="Project-1f8d" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="MYRIDE" >
+		<table name="Driver" prior="Entity" >
+			<comment><![CDATA[All Registered Drivers will be stored in this table]]></comment>
+			<column name="d_id" type="INT" jt="4" mandatory="y" >
+				<defo><![CDATA[100]]></defo>
+			</column>
+			<column name="name" type="VARCHAR" length="50" jt="12" />
+			<column name="gender" type="VARCHAR" length="20" jt="12" />
+			<column name="address" type="VARCHAR" length="100" jt="12" />
+			<column name="phoneNo" type="VARCHAR" length="11" jt="12" />
+			<column name="rating" type="INT" jt="4" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="totalRatings" prior="ratingCount" type="INT" jt="4" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="curr_latitude" prior="curr_location" type="VARCHAR" length="20" jt="12" />
+			<column name="curr_longitude" type="VARCHAR" length="100" jt="12" />
+			<column name="vType" prior="vehicle" type="VARCHAR" length="40" jt="12" />
+			<column name="vModel" type="VARCHAR" length="50" jt="12" />
+			<column name="vLicensePlate" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_Driver" unique="PRIMARY_KEY" >
+				<column name="d_id" />
+			</index>
+			<fk name="fk_driver_ride" virtual="y" to_schema="MYRIDE.INSTANCE" to_table="Ride" type="ManyToMany" mandatory="y" cardinality="One" range_from="0" range_to="0" >
+				<fk_column name="d_id" pk="driverID" />
+			</fk>
+		</table>
+		<table name="Ride" prior="Entity" >
+			<column name="ride_id" type="INT" jt="4" mandatory="y" >
+				<defo><![CDATA[1000]]></defo>
+			</column>
+			<column name="startLatitude" type="DOUBLE" jt="8" />
+			<column name="startLongitude" type="DOUBLE" jt="8" />
+			<column name="endLatitude" type="DOUBLE" jt="8" />
+			<column name="endLongitude" type="DOUBLE" jt="8" />
+			<column name="pName" type="VARCHAR" length="100" jt="12" />
+			<column name="pMobile" type="VARCHAR" length="100" jt="12" />
+			<column name="rideType" type="VARCHAR" length="100" jt="12" >
+				<comment><![CDATA[Car or Bike or Rickshaw]]></comment>
+			</column>
+			<column name="price" type="INT" jt="4" />
+			<column name="driverID" type="INT" jt="4" />
+			<index name="pk_Ride" unique="PRIMARY_KEY" >
+				<column name="ride_id" />
+			</index>
+		</table>
+	</schema>
+	<layout name="MYRIDE-DBM2" id="Layout-234a" show_relation="columns" >
+		<entity schema="MYRIDE.INSTANCE" name="Driver" color="EEC1C1" x="48" y="48" />
+		<entity schema="MYRIDE.INSTANCE" name="Ride" color="C1EEC2" x="320" y="64" />
+	</layout>
+</project>
